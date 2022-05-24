@@ -98,7 +98,7 @@ const TopBar = () => {
                                     <Grid item>
                                         <Button
                                             variant="contained"
-                                            color="secondary"
+                                            color="success"
                                             href="/login"
                                         >
                                             Log in

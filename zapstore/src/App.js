@@ -6,6 +6,8 @@ import {Route, Routes} from "react-router-dom";
 import TopBar from "./components/TopBar";
 import URI from "./constants/URI";
 import HomePage from "./pages/HomePage";
+import StorePage from "./pages/StorePage";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
     const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -35,7 +37,8 @@ const getPublicRoutes = () => {
     return (
         <Routes>
             <Route path={URI.HOME} element={<HomePage/>}/>
-            {/*<Route path={URI.STORE} element={<CompaniesPage/>}/>*/}
+            <Route path={URI.STORE} element={<StorePage/>}/>
+            <Route path={`${URI.STORE}/:id`} element={<ProductPage/>} />
             {/*<Route path={URI.RIDERS} element={<RidersManagementPage/>}/>*/}
         </Routes>
     );

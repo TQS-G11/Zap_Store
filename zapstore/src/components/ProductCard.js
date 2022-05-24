@@ -9,6 +9,7 @@ const ProductCard = ({product}) => {
     const name = product["name"]
     const description = product["description"]
     const img = product["img"]
+    const qtd = product["quantity"]
 
     return (
         <Card sx={{ maxWidth: 345 }}>
@@ -20,14 +21,14 @@ const ProductCard = ({product}) => {
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    {name}
+                    {name} - ({qtd} in stock)
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {description}
                 </Typography>
             </CardContent>
             <Grid container justifyContent={"center"}>
-                <Button variant={"contained"} color={"success"} href={`/${URI.STORE}/${id}`}>See More</Button>
+                <Button variant={"contained"} color={"success"} href={`${URI.STORE}/${id}`}>See More</Button>
             </Grid>
             <br/>
         </Card>
