@@ -1,37 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import {createTheme, CssBaseline, ThemeProvider, useMediaQuery} from "@mui/material";
+import React from "react";
+import axios from "axios";
+import {Route, Routes} from "react-router-dom";
+import TopBar from "./components/TopBar";
+import URI from "./constants/URI";
+import HomePage from "./pages/HomePage";
 
 function App() {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  );
+    const theme = React.useMemo(() => createTheme({
+        palette: {
+            mode: prefersDarkMode ? "dark" : "light",
+        },
+    }), [prefersDarkMode],);
+
+
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline/>
+            <TopBar/>
+            {getRoutes()}
+        </ThemeProvider>
+    );
 }
+
+const getRoutes = () => {
+    return getPublicRoutes();
+}
+
+
+const getPublicRoutes = () => {
+    return (
+        <Routes>
+            <Route path={URI.HOME} element={<HomePage/>}/>
+            {/*<Route path={URI.STORE} element={<CompaniesPage/>}/>*/}
+            {/*<Route path={URI.RIDERS} element={<RidersManagementPage/>}/>*/}
+        </Routes>
+    );
+};
+
+(function () {
+    let token = window.localStorage.getItem("token");
+    if (token) axios.defaults.headers.common["Authorization"] = token; else axios.defaults.headers.common["Authorization"] = null;
+})();
 
 export default App;
