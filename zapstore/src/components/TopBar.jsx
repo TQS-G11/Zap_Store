@@ -3,6 +3,7 @@ import {AppBar, Box, Button, Chip, Container, Grid, IconButton, Link, Menu, Menu
 import URI from "../constants/URI";
 import React, {useState} from "react";
 import MenuIcon from '@mui/icons-material/Menu';
+import {useNavigate} from "react-router-dom";
 
 
 const pages = {
@@ -17,6 +18,8 @@ const TopBar = () => {
         window.localStorage.clear();
         window.location.reload();
     };
+
+    const navigate = useNavigate()
 
     // Responsive App Bar
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -73,7 +76,7 @@ const TopBar = () => {
                         >
                             {Object.keys(pages).map((k) => (
                                 <MenuItem key={k} onClick={handleCloseNavMenu}>
-                                    <Link href={pages[k]} textAlign="center" underline="none">{k}</Link>
+                                    <Link onClick={() => navigate(pages[k])} textAlign="center" underline="none">{k}</Link>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -82,8 +85,7 @@ const TopBar = () => {
                         {Object.keys(pages).map((k) => (
                             <Button
                                 key={k}
-                                onClick={handleCloseNavMenu}
-                                href={pages[k]}
+                                onClick={() => navigate(pages[k])}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
                                 {k}
@@ -99,7 +101,7 @@ const TopBar = () => {
                                         <Button
                                             variant="contained"
                                             color="success"
-                                            href="/login"
+                                            onClick={() => navigate("login")}
                                         >
                                             Log in
                                         </Button>
@@ -108,7 +110,7 @@ const TopBar = () => {
                                         <Button
                                             variant="contained"
                                             color="secondary"
-                                            href="/signup"
+                                            onClick={() => navigate("signup")}
                                             disabled={true}
                                         >
                                             Sign up

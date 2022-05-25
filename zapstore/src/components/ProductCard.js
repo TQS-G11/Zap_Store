@@ -1,10 +1,13 @@
 import React from "react"
-import {Button, Card, CardActions, CardContent, CardMedia, Grid, Typography} from "@mui/material";
+import {Card, CardContent, CardMedia, Typography} from "@mui/material";
 import URI from "../constants/URI";
+import {useNavigate} from "react-router-dom";
+import "./ProductCard.css"
 
 
 const ProductCard = ({product}) => {
 
+    const navigate = useNavigate()
     const id = product["id"]
     const name = product["name"]
     const description = product["description"]
@@ -12,7 +15,9 @@ const ProductCard = ({product}) => {
     const qtd = product["quantity"]
 
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card className={"product-card"} sx={{ maxWidth: "90%", marginBottom: "2em" }}
+              onClick={() => navigate(`${URI.STORE}/${id}`)}
+        >
             <CardMedia
                 component="img"
                 height="140"
@@ -27,9 +32,6 @@ const ProductCard = ({product}) => {
                     {description}
                 </Typography>
             </CardContent>
-            <Grid container justifyContent={"center"}>
-                <Button variant={"contained"} color={"success"} href={`${URI.STORE}/${id}`}>See More</Button>
-            </Grid>
             <br/>
         </Card>
     )
