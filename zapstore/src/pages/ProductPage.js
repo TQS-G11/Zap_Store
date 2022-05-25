@@ -10,7 +10,10 @@ import {
 } from "@mui/material";
 import "./ProductPage.css"
 import ProductDescription from "../components/ProductDescription";
+
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SaveIcon from '@mui/icons-material/Save';
+
 import BasicModal from "../components/BasicModal";
 import ZAP_URI from "../constants/ZAP_URI";
 
@@ -23,8 +26,11 @@ const ProductPage = () => {
     const [modalTitle, setModalTitle] = useState("")
     const [modalText, setModalText] = useState("")
 
+    const [updates, setUpdates] = useState(false)
+
     const navigate = useNavigate()
-    let token = window.sessionStorage.getItem("token")
+    const token = window.sessionStorage.getItem("token")
+    const canEdit = window.sessionStorage.getItem("username") === "admin"
     console.log("token", token)
     console.log("Product id", id)
 
@@ -72,7 +78,11 @@ const ProductPage = () => {
                             />
                         </Grid>
                         <Grid item xs={6}>
-                            <ProductDescription product={product} />
+                            <ProductDescription
+                                product={product}
+                                canEdit={canEdit}
+                                setUpdates={setUpdates}
+                            />
                             <br/>
                             <TextField
                                 type={"number"}
@@ -99,13 +109,24 @@ const ProductPage = () => {
                                     onClick={() => navigate(ZAP_URI.LOGIN)}
                                 >Login to add to cart!</Button>
                             :
-                                <Button
-                                    variant={"contained"}
-                                    color={"success"}
-                                    size={"large"}
-                                    endIcon={<ShoppingCartIcon/>}
-                                    onClick={addToCart}
-                                >Add to Cart</Button>
+                                <>
+                                    <Button
+                                        variant={"contained"}
+                                        color={"success"}
+                                        size={"large"}
+                                        endIcon={<ShoppingCartIcon/>}
+                                        onClick={addToCart}
+                                    >Add to Cart</Button>
+                                    {updates &&
+                                        <Button
+                                            variant={"contained"}
+                                            size={"large"}
+                                            endIcon={<SaveIcon/>}
+                                            sx={{ml:4}}
+                                        >Save Changes</Button>
+                                    }
+                                </>
+
                             }
 
                         </Grid>
