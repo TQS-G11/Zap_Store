@@ -1,22 +1,22 @@
 import {AppBar, Box, Button, Chip, Container, Grid, IconButton, Link, Menu, MenuItem, Toolbar, Tooltip}
     from "@mui/material";
-import URI from "../constants/URI";
+import ZAP_URI from "../constants/ZAP_URI";
 import React, {useState} from "react";
 import MenuIcon from '@mui/icons-material/Menu';
 import {useNavigate} from "react-router-dom";
 
 
 const pages = {
-    "Home": URI.HOME,
-    "Store": URI.STORE,
-    // "Rider Management": URI.RIDERS
+    "Home": ZAP_URI.HOME,
+    "Store": ZAP_URI.STORE,
+    // "Rider Management": ZAP_URI.RIDERS
 }
 
 
 const TopBar = () => {
     const onLogout = () => {
-        window.localStorage.clear();
-        window.location.reload();
+        window.sessionStorage.clear();
+        navigate(ZAP_URI.HOME)
     };
 
     const navigate = useNavigate()
@@ -24,6 +24,8 @@ const TopBar = () => {
     // Responsive App Bar
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
+    let token = window.sessionStorage.getItem("token")
+    let username = window.sessionStorage.getItem("username")
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -93,7 +95,7 @@ const TopBar = () => {
                         ))}
                     </Box>
 
-                    {window.localStorage.getItem("token") === null ?
+                    {token == null ?
                         (
                             <Box sx={{flexGrow: 0}}>
                                 <Grid container spacing={1} justifyContent="flex-end">
@@ -122,7 +124,7 @@ const TopBar = () => {
                             <Box sx={{flexGrow: 0}}>
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                        <Chip label={window.localStorage.getItem("username")} variant="outlined"/>
+                                        <Chip label={username} variant="outlined"/>
                                     </IconButton>
                                 </Tooltip>
                                 <Menu

@@ -4,10 +4,11 @@ import React from "react";
 import axios from "axios";
 import {Route, Routes} from "react-router-dom";
 import TopBar from "./components/TopBar";
-import URI from "./constants/URI";
+import ZAP_URI from "./constants/ZAP_URI";
 import HomePage from "./pages/HomePage";
 import StorePage from "./pages/StorePage";
 import ProductPage from "./pages/ProductPage";
+import LoginForm from "./components/LoginForm";
 
 function App() {
     const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -36,10 +37,11 @@ const getRoutes = () => {
 const getPublicRoutes = () => {
     return (
         <Routes>
-            <Route path={URI.HOME} element={<HomePage/>}/>
-            <Route path={URI.STORE} element={<StorePage/>}/>
-            <Route path={`${URI.STORE}/:id`} element={<ProductPage/>} />
-            {/*<Route path={URI.RIDERS} element={<RidersManagementPage/>}/>*/}
+            <Route path={ZAP_URI.HOME} element={<HomePage/>}/>
+            <Route path={ZAP_URI.STORE} element={<StorePage/>}/>
+            <Route path={`${ZAP_URI.STORE}/:id`} element={<ProductPage/>} />
+            <Route path={ZAP_URI.LOGIN} element={<LoginForm/>} />
+            {/*<Route path={ZAP_URI.RIDERS} element={<RidersManagementPage/>}/>*/}
         </Routes>
     );
 };

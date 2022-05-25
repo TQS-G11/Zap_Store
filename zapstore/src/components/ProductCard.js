@@ -1,6 +1,6 @@
 import React from "react"
 import {Card, CardContent, CardMedia, Typography} from "@mui/material";
-import URI from "../constants/URI";
+import ZAP_URI from "../constants/ZAP_URI";
 import {useNavigate} from "react-router-dom";
 import "./ProductCard.css"
 
@@ -12,11 +12,12 @@ const ProductCard = ({product}) => {
     const name = product["name"]
     const description = product["description"]
     const img = product["img"]
-    const qtd = product["quantity"]
+    const quantity = product["quantity"]
+    const price = product["price"]
 
     return (
         <Card className={"product-card"} sx={{ maxWidth: "90%", marginBottom: "2em" }}
-              onClick={() => navigate(`${URI.STORE}/${id}`)}
+              onClick={() => navigate(`${ZAP_URI.STORE}/${id}`)}
         >
             <CardMedia
                 component="img"
@@ -26,10 +27,13 @@ const ProductCard = ({product}) => {
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    {name} - ({qtd} in stock)
+                    {name} - €{price}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {description}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    ({quantity} in stock)
                 </Typography>
             </CardContent>
             <br/>

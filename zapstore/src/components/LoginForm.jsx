@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {useState} from "react";
-import URI from "../constants/URI";
 // import {login} from "../api/PublicApi";
 import {useNavigate} from "react-router-dom";
+import ZAP_URI from "../constants/ZAP_URI";
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -40,6 +40,9 @@ const LoginForm = () => {
 
     const onLogin = (username, password) => {
         console.log(`username: ${username}, password: ${password}`);
+        window.sessionStorage.setItem("token", "amogus")
+        window.sessionStorage.setItem("username", username)
+        navigate(ZAP_URI.STORE)
         // login(username, password)
         //     .then((response) => {
         //         const {token} = response.data;
@@ -47,7 +50,7 @@ const LoginForm = () => {
         //         console.log(`stored token ${token}`);
         //         window.localStorage.setItem("username", username);
         //         if (["/login", "/signup"].includes(window.location.pathname))
-        //             navigate(URI.HOME);
+        //             navigate(ZAP_URI.HOME);
         //         window.location.reload();
         //     })
         //     .catch((error) => {
@@ -108,7 +111,7 @@ const LoginForm = () => {
                                 <Button
                                     variant="contained"
                                     fullWidth
-                                    color="secondary"
+                                    color="success"
                                     type="submit"
                                 >
                                     Login
@@ -130,8 +133,8 @@ const LoginForm = () => {
                                     <p>Don't have an account yet?</p>
                                     <Link
                                         style={{cursor: "pointer"}}
-                                        color="secondary"
-                                        href={URI.SIGNUP}
+                                        color="primary"
+                                        href={ZAP_URI.SIGNUP}
                                     >
                                         <strong>Sign up!</strong>
                                     </Link>

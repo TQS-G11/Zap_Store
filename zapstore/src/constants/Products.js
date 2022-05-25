@@ -6,6 +6,7 @@ export const PRODUCT_LIST = [
         "description": "A pen drive with a suspicious format resembling the Among Us series.",
         "quantity": 69,
         "user": 1,
+        "price": 69.90
     },
     {
         "id": 2,
@@ -14,6 +15,7 @@ export const PRODUCT_LIST = [
         "description": "A laptop charger for the Sanung Series 9.",
         "quantity": 5,
         "user": 2,
+        "price": 12.80
     },
     {
         "id": 3,
@@ -22,6 +24,7 @@ export const PRODUCT_LIST = [
         "description": "A mobile phone charger.",
         "quantity": 88,
         "user": 3,
+        "price": 2.54
     },
     {
         "id": 4,
@@ -30,6 +33,8 @@ export const PRODUCT_LIST = [
         "description": "A pen drive with a suspicious format resembling the Among Us series.",
         "quantity": 69,
         "user": 1,
+        "price": 69.90
+
     },
     {
         "id": 5,
@@ -38,6 +43,8 @@ export const PRODUCT_LIST = [
         "description": "A laptop charger for the Sanung Series 9.",
         "quantity": 5,
         "user": 2,
+        "price": 12.80
+
     },
     {
         "id": 6,
@@ -46,5 +53,7 @@ export const PRODUCT_LIST = [
         "description": "A mobile phone charger.",
         "quantity": 88,
         "user": 3,
+        "price": 2.54
+
     },
 ]
