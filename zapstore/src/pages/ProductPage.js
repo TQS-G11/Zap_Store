@@ -47,7 +47,7 @@ const ProductPage = () => {
     }
 
     useEffect(() => {
-        setProduct(PRODUCT_LIST[1])
+        setProduct(PRODUCT_LIST[2])
     }, [])
 
     return (
