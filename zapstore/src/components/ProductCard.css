@@ -6,3 +6,16 @@
     transform: scale(1.125);
     cursor: pointer;
 }
+
+.product-card-limit {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /** número de linhas que você quer exibir */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-card-actions {
+    /*display: "flex";*/
+    justify-content: flex-end;
+}

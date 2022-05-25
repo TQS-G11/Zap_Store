@@ -8,6 +8,8 @@ import "./StorePage.css"
 const StorePage = () => {
 
     const [products, setProducts] = useState([])
+    const token = window.sessionStorage.getItem("token")
+    const isAdmin = window.sessionStorage.getItem("username") === "admin"
 
     useEffect(() => {
         setProducts(PRODUCT_LIST)
@@ -30,7 +32,11 @@ const StorePage = () => {
                 <br/>
                 <br/>
 
-                <ProductList products={products} elementsByRow={4} />
+                <ProductList
+                    products={products}
+                    elementsByRow={4}
+                    canEdit={isAdmin}
+                />
 
             </Container>
         </>
