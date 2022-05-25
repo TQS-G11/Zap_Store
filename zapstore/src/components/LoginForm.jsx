@@ -42,7 +42,7 @@ const LoginForm = () => {
         console.log(`username: ${username}, password: ${password}`);
         window.sessionStorage.setItem("token", "amogus")
         window.sessionStorage.setItem("username", username)
-        navigate(ZAP_URI.STORE)
+        navigate(ZAP_URI.HOME)
         // login(username, password)
         //     .then((response) => {
         //         const {token} = response.data;

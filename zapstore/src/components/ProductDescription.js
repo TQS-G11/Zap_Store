@@ -4,9 +4,11 @@ import {Typography} from "@mui/material";
 const ProductDescription = ({product}) => {
     return (
         <>
-            <Typography variant={"h3"}>{product.name}</Typography>
-            <Typography variant={"h4"}>€{product.price}</Typography>
+            <Typography variant={"h4"}>{product.name}</Typography>
+            <Typography variant={"h5"}>€{product.price}</Typography>
+            <Typography variant={"h5"}>{product.quantity} in stock.</Typography>
             <Typography color={"text.secondary"}>{product.description}</Typography>
+
         </>
     )
 

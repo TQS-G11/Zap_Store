@@ -3,7 +3,10 @@ import {AppBar, Box, Button, Chip, Container, Grid, IconButton, Link, Menu, Menu
 import ZAP_URI from "../constants/ZAP_URI";
 import React, {useState} from "react";
 import MenuIcon from '@mui/icons-material/Menu';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
 import {useNavigate} from "react-router-dom";
+
 
 
 const pages = {
@@ -122,31 +125,44 @@ const TopBar = () => {
                             </Box>
                         ) : (
                             <Box sx={{flexGrow: 0}}>
-                                <Tooltip title="Open settings">
-                                    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                        <Chip label={username} variant="outlined"/>
-                                    </IconButton>
-                                </Tooltip>
-                                <Menu
-                                    sx={{mt: '45px'}}
-                                    id="menu-appbar"
-                                    anchorEl={anchorElUser}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={Boolean(anchorElUser)}
-                                    onClose={handleCloseUserMenu}
-                                >
-                                    <MenuItem onClick={handleCloseUserMenu}>
-                                        <Link textAlign="center" onClick={onLogout}>Sign out</Link>
-                                    </MenuItem>
-                                </Menu>
+                                <Grid container spacing={1}>
+                                    <Grid item>
+                                        <Button
+                                            variant={"contained"}
+                                            color={"success"}
+                                            endIcon={<ShoppingCartIcon/>}
+                                            onClick={() => navigate(ZAP_URI.CART)}
+                                        >Cart</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Tooltip title="Open settings">
+                                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                                <Chip label={username} variant="outlined"/>
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Menu
+                                            sx={{mt: '45px'}}
+                                            id="menu-appbar"
+                                            anchorEl={anchorElUser}
+                                            anchorOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            open={Boolean(anchorElUser)}
+                                            onClose={handleCloseUserMenu}
+                                        >
+                                            <MenuItem onClick={handleCloseUserMenu}>
+                                                <Link textAlign="center" onClick={onLogout}>Sign out</Link>
+                                            </MenuItem>
+                                        </Menu>
+                                    </Grid>
+                                </Grid>
+
                             </Box>
                         )
                     }

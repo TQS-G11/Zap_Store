@@ -1,13 +1,8 @@
 import React, {useEffect, useState} from "react"
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {PRODUCT_LIST} from "../constants/Products";
 import {
-    Box,
     Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
     Container,
     Grid,
     Paper, TextField,
@@ -16,15 +11,40 @@ import {
 import "./ProductPage.css"
 import ProductDescription from "../components/ProductDescription";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import BasicModal from "../components/BasicModal";
+import ZAP_URI from "../constants/ZAP_URI";
 
 const ProductPage = () => {
 
     const {id} = useParams()
     const [product, setProduct] = useState({})
     const [quantity, setQuantity] = useState(0)
+    const [open, setOpen] = useState(false)
+    const [modalTitle, setModalTitle] = useState("")
+    const [modalText, setModalText] = useState("")
+
+    const navigate = useNavigate()
     let token = window.sessionStorage.getItem("token")
     console.log("token", token)
     console.log("Product id", id)
+
+    const addToCart = () => {
+        if (product.quantity < quantity) {
+            setModalTitle("Failed!")
+            setModalText("Item out of Stock!")
+        }
+        else {
+            setModalTitle("Success!")
+            setModalText("Chosen item added!")
+        }
+        setOpen(true)
+    }
+
+    const onClose = () => {
+        if (modalTitle.toLowerCase().includes("success")) {
+            navigate(ZAP_URI.CART)
+        }
+    }
 
     useEffect(() => {
         setProduct(PRODUCT_LIST[1])
@@ -67,6 +87,7 @@ const ProductPage = () => {
                                     shrink: true,
                                 }}
                             />
+                            <Typography>Price: €{Math.round(quantity*product.price * 100) / 100}</Typography>
                             <br/>
                             <br/>
                             {token == null ?
@@ -75,6 +96,7 @@ const ProductPage = () => {
                                     color={"success"}
                                     size={"large"}
                                     endIcon={<ShoppingCartIcon/>}
+                                    onClick={() => navigate(ZAP_URI.LOGIN)}
                                 >Login to add to cart!</Button>
                             :
                                 <Button
@@ -82,6 +104,7 @@ const ProductPage = () => {
                                     color={"success"}
                                     size={"large"}
                                     endIcon={<ShoppingCartIcon/>}
+                                    onClick={addToCart}
                                 >Add to Cart</Button>
                             }
 
@@ -91,6 +114,13 @@ const ProductPage = () => {
                 </Paper>
 
             }
+            <BasicModal
+                open={open}
+                setOpen={setOpen}
+                title={modalTitle}
+                text={modalText}
+                onClose={onClose}
+            />
         </Container>
     )
 }

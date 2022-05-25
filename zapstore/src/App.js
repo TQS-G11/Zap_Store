@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import StorePage from "./pages/StorePage";
 import ProductPage from "./pages/ProductPage";
 import LoginForm from "./components/LoginForm";
+import CartPage from "./pages/CartPage";
 
 function App() {
     const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -41,6 +42,8 @@ const getPublicRoutes = () => {
             <Route path={ZAP_URI.STORE} element={<StorePage/>}/>
             <Route path={`${ZAP_URI.STORE}/:id`} element={<ProductPage/>} />
             <Route path={ZAP_URI.LOGIN} element={<LoginForm/>} />
+            <Route path={ZAP_URI.CART} element={<CartPage/>} />
+
             {/*<Route path={ZAP_URI.RIDERS} element={<RidersManagementPage/>}/>*/}
         </Routes>
     );
