@@ -35,6 +35,14 @@ const ProductPage = () => {
     console.log("Product id", id)
 
     const addToCart = () => {
+
+        addProductToCart(product, quantity)
+
+    }
+
+    const addProductToCart = (product, quantity) => {
+        // TODO use spring poop endpoint to add to cart
+
         if (product.quantity < quantity) {
             setModalTitle("Failed!")
             setModalText("Item out of Stock!")
@@ -44,6 +52,8 @@ const ProductPage = () => {
             setModalText("Chosen item added!")
         }
         setOpen(true)
+
+
     }
 
     const onClose = () => {
