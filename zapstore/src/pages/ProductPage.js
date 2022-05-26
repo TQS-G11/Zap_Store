@@ -53,7 +53,6 @@ const ProductPage = () => {
         }
         setOpen(true)
 
-
     }
 
     const onClose = () => {
