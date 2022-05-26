@@ -19,13 +19,19 @@ const CartPage = () => {
     const token = window.sessionStorage.getItem("token")
 
     useEffect(() => {
-        console.log(token)
+        // console.log(token)
         if (token == null) {
             navigate(ZAP_URI.HOME)
         }
     }, [])
 
-    const products = PRODUCT_LIST
+    const [products, setProducts] = useState([])
+
+    useEffect(() => {
+        let localProds = window.sessionStorage.getItem("products")
+        localProds = JSON.parse(localProds)
+        setProducts(localProds)
+    }, [])
 
     const columns = [
         {
@@ -42,7 +48,7 @@ const CartPage = () => {
             field: "price",
             headerName: "Price (€)",
             flex: 1,
-            valueGetter: ({value}) => `${value}`
+            valueGetter: ({value}) => `${Math.round(value * 100) / 100}`
         },
         {
             field: "market",

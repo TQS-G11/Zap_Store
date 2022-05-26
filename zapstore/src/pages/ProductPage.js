@@ -35,13 +35,11 @@ const ProductPage = () => {
     console.log("Product id", id)
 
     const addToCart = () => {
-
         addProductToCart(product, quantity)
-
     }
 
     const addProductToCart = (product, quantity) => {
-        // TODO use spring poop endpoint to add to cart
+        // TODO use spring endpoint to add to cart
 
         if (product.quantity < quantity) {
             setModalTitle("Failed!")
@@ -57,12 +55,23 @@ const ProductPage = () => {
 
     const onClose = () => {
         if (modalTitle.toLowerCase().includes("success")) {
+            let products = window.sessionStorage.getItem("products")
+            if (products == null) {
+                products = "[]"
+            }
+            let newProd = {...product}
+            newProd.quantity = quantity
+            newProd.price = product.price * quantity
+
+            products = JSON.parse(products)
+            products.push(newProd)
+            window.sessionStorage.setItem("products", JSON.stringify(products))
             navigate(ZAP_URI.CART)
         }
     }
 
     useEffect(() => {
-        setProduct(PRODUCT_LIST[2])
+        setProduct(PRODUCT_LIST[id-1])
     }, [])
 
     return (
