@@ -33,6 +33,16 @@ const CartPage = () => {
         setProducts(localProds)
     }, [])
 
+    const removeFromCard = (id) => {
+        let localProds = window.sessionStorage.getItem("products")
+        localProds = JSON.parse(localProds)
+        localProds = localProds.filter((item) => {
+            return item.id !== id
+        })
+        setProducts(localProds)
+        window.sessionStorage.setItem("products", JSON.stringify(localProds))
+    }
+
     const columns = [
         {
             field: "name",
@@ -54,7 +64,7 @@ const CartPage = () => {
             field: "market",
             headerName: "",
             flex: 1,
-            renderCell: () => <Button endIcon={<RemoveShoppingCartIcon/>} fullWidth variant={"contained"} color={"error"}>Remove</Button>
+            renderCell: (params) => <Button onClick={() => removeFromCard(params.row.id)} endIcon={<RemoveShoppingCartIcon/>} fullWidth variant={"contained"} color={"error"}>Remove</Button>
         }
     ]
 
