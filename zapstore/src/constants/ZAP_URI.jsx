@@ -3,6 +3,7 @@ const ZAP_URI = {
     LOGIN: "/login",
     STORE: "/store",
     CART: "/cart",
+    CHECKOUT: "/checkout",
 }
 
 export default ZAP_URI;

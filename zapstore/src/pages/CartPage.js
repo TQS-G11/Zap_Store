@@ -30,6 +30,9 @@ const CartPage = () => {
     useEffect(() => {
         let localProds = window.sessionStorage.getItem("products")
         localProds = JSON.parse(localProds)
+        if (localProds == null) {
+            localProds = []
+        }
         setProducts(localProds)
     }, [])
 
@@ -83,6 +86,13 @@ const CartPage = () => {
                 disableSelectionOnClick
                 autoHeight
             />
+
+            <br/>
+            <Button
+                variant={"contained"}
+                color={"success"}
+                onClick={() => navigate(ZAP_URI.CHECKOUT)}
+            >Go to checkout</Button>
         </Container>
 
         // </div>
