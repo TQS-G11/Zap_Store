@@ -17,6 +17,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import BasicModal from "../components/BasicModal";
 import ZAP_URI from "../constants/ZAP_URI";
 import {getProductById} from "../api/PublicAPI";
+import {addCartProduct} from "../api/PrivateAPI";
 
 const ProductPage = () => {
 
@@ -32,47 +33,39 @@ const ProductPage = () => {
     const navigate = useNavigate()
     const token = window.sessionStorage.getItem("token")
     const canEdit = window.sessionStorage.getItem("username") === "admin"
-    console.log("token", token)
-    console.log("Product id", id)
+    // console.log("token", token)
+    // console.log("Product id", id)
+
+    // const addToCart = () => {
+    //     addProductToCart(product, quantity)
+    // }
 
     const addToCart = () => {
-        addProductToCart(product, quantity)
-    }
 
-    const addProductToCart = (product, quantity) => {
-        // TODO use spring endpoint to add to cart
+        addCartProduct(id/1, quantity/1)
+            .then(response => {
+                console.log("product add response", response)
+                navigate(ZAP_URI.CART)
 
-        if (product.quantity < quantity) {
-            setModalTitle("Failed!")
-            setModalText("Item out of Stock!")
-        }
-        else {
-            setModalTitle("Success!")
-            setModalText("Chosen item added!")
-        }
-        setOpen(true)
+            })
+            .catch((error) => {
+                console.log(error)
+                let data = error.response["data"];
+                let errorMessage = ""
+                for (let err of data.errors) {
+                    errorMessage += `${err}\n`
+                }
+                setModalTitle("Failed!")
+                setModalText(errorMessage)
+                setOpen(true)
+            });
 
-    }
 
-    const onClose = () => {
-        if (modalTitle.toLowerCase().includes("success")) {
-            let products = window.sessionStorage.getItem("products")
-            if (products == null) {
-                products = "[]"
-            }
-            let newProd = {...product}
-            newProd.quantity = quantity
-            newProd.price = product.price * quantity
 
-            products = JSON.parse(products)
-            products.push(newProd)
-            window.sessionStorage.setItem("products", JSON.stringify(products))
-            navigate(ZAP_URI.CART)
-        }
     }
 
     useEffect(() => {
-        setProduct(PRODUCT_LIST[id-1])
+        // setProduct(PRODUCT_LIST[id-1])
         getProductById(id)
             .then(response => {
                 console.log("product page", response)
@@ -167,7 +160,6 @@ const ProductPage = () => {
                 setOpen={setOpen}
                 title={modalTitle}
                 text={modalText}
-                onClose={onClose}
             />
         </Container>
     )

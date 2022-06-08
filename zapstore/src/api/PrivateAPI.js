@@ -11,3 +11,6 @@ const api = axios.create({
     },
 })
 
+export const addCartProduct = (productId, quantity) => api.post("/cart/add", {"productId": productId, "quantity": quantity})
+
+export const getCartProducts = () => api.get("/cart")

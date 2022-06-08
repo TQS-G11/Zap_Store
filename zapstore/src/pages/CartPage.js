@@ -11,6 +11,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import {useNavigate} from "react-router-dom";
 import ZAP_URI from "../constants/ZAP_URI";
+import {getCartProducts} from "../api/PrivateAPI";
 
 const CartPage = () => {
 
@@ -28,9 +29,18 @@ const CartPage = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        let localProds = window.sessionStorage.getItem("products")
-        localProds = JSON.parse(localProds)
-        setProducts(localProds)
+        // let localProds = window.sessionStorage.getItem("products")
+        // localProds = JSON.parse(localProds)
+        // setProducts(localProds)
+        getCartProducts()
+            .then(response => {
+                console.log(response)
+                // TODO ainda n e feito nada com a response, mas seria so fazer um setProducts das cenas ig, no max dar
+                // uns ajustes nas rows do datagrid
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }, [])
 
     const removeFromCard = (id) => {
