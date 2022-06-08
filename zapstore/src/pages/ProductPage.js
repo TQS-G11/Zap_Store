@@ -16,6 +16,7 @@ import SaveIcon from '@mui/icons-material/Save';
 
 import BasicModal from "../components/BasicModal";
 import ZAP_URI from "../constants/ZAP_URI";
+import {getProductById} from "../api/PublicAPI";
 
 const ProductPage = () => {
 
@@ -72,6 +73,14 @@ const ProductPage = () => {
 
     useEffect(() => {
         setProduct(PRODUCT_LIST[id-1])
+        getProductById(id)
+            .then(response => {
+                console.log("product page", response)
+                setProduct(response.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }, [])
 
     return (

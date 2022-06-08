@@ -12,7 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 const ProductCard = ({product, canEdit=false}) => {
 
     const navigate = useNavigate()
-    const id = product["id"]
+    const id = product["productId"]
     const name = product["name"]
     const description = product["description"]
     const img = product["img"]

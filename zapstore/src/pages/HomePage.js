@@ -5,13 +5,21 @@ import {PRODUCT_LIST} from "../constants/Products";
 import ProductList from "../components/ProductList";
 import {useNavigate} from "react-router-dom";
 import ZAP_URI from "../constants/ZAP_URI"
+import {getProducts} from "../api/PublicAPI";
 
 const HomePage = () => {
     const [products, setProducts] = useState([])
     const navigate = useNavigate()
 
     useEffect(() => {
-        setProducts(PRODUCT_LIST)
+        getProducts()
+            .then(response => {
+                console.log("product response", response)
+                setProducts(response.data)
+            })
+            .catch(err => {
+                console.log("sussy error", err)
+            })
     }, [])
 
 
