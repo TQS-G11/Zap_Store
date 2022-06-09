@@ -11,6 +11,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import {useNavigate} from "react-router-dom";
 import ZAP_URI from "../constants/ZAP_URI";
+import {deleteCartProductById, getCartProducts} from "../api/PrivateAPI";
 
 const CartPage = () => {
 
@@ -27,27 +28,43 @@ const CartPage = () => {
 
     const [products, setProducts] = useState([])
 
+    const getCarts = () => {
+        getCartProducts()
+            .then(response => {
+                console.log(response)
+                setProducts(response.data)
+                // TODO ainda n e feito nada com a response, mas seria so fazer um setProducts das cenas ig, no max dar
+                // uns ajustes nas rows do datagrid
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     useEffect(() => {
-        let localProds = window.sessionStorage.getItem("products")
-        localProds = JSON.parse(localProds)
-        setProducts(localProds)
+        // let localProds = window.sessionStorage.getItem("products")
+        // localProds = JSON.parse(localProds)
+        // setProducts(localProds)
+        getCarts()
     }, [])
 
     const removeFromCard = (id) => {
-        let localProds = window.sessionStorage.getItem("products")
-        localProds = JSON.parse(localProds)
-        localProds = localProds.filter((item) => {
-            return item.id !== id
-        })
-        setProducts(localProds)
-        window.sessionStorage.setItem("products", JSON.stringify(localProds))
+        deleteCartProductById(id)
+            .then(response => {
+                console.log("delete response", response)
+                getCarts()
+            })
+            .catch(err => {
+                console.log("error delete response", err)
+            })
     }
 
     const columns = [
         {
             field: "name",
             headerName: "Name",
-            flex: 2
+            flex: 2,
+            valueGetter: ({row}) => row.product.name
         },
         {
             field: "quantity",
@@ -58,7 +75,7 @@ const CartPage = () => {
             field: "price",
             headerName: "Price (€)",
             flex: 1,
-            valueGetter: ({value}) => `${Math.round(value * 100) / 100}`
+            valueGetter: ({row}) => `${Math.round(row.product.price * 100 * row.quantity) / 100 }`
         },
         {
             field: "market",

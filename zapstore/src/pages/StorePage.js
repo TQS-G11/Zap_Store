@@ -4,6 +4,7 @@ import {PRODUCT_LIST} from "../constants/Products";
 import ProductList from "../components/ProductList";
 
 import "./StorePage.css"
+import {getProducts} from "../api/PublicAPI";
 
 const StorePage = () => {
 
@@ -12,7 +13,14 @@ const StorePage = () => {
     const isAdmin = window.sessionStorage.getItem("username") === "admin"
 
     useEffect(() => {
-        setProducts(PRODUCT_LIST)
+        getProducts()
+            .then(response => {
+                console.log("product response", response)
+                setProducts(response.data)
+            })
+            .catch(err => {
+                console.log("sussy error", err)
+            })
     }, [])
 
 
