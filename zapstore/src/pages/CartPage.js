@@ -35,6 +35,7 @@ const CartPage = () => {
         getCartProducts()
             .then(response => {
                 console.log(response)
+                setProducts(response.data)
                 // TODO ainda n e feito nada com a response, mas seria so fazer um setProducts das cenas ig, no max dar
                 // uns ajustes nas rows do datagrid
             })
@@ -57,7 +58,8 @@ const CartPage = () => {
         {
             field: "name",
             headerName: "Name",
-            flex: 2
+            flex: 2,
+            valueGetter: ({row}) => row.product.name
         },
         {
             field: "quantity",
@@ -68,7 +70,7 @@ const CartPage = () => {
             field: "price",
             headerName: "Price (€)",
             flex: 1,
-            valueGetter: ({value}) => `${Math.round(value * 100) / 100}`
+            valueGetter: ({row}) => `${Math.round(row.product.price * 100) / 100 * row.quantity}`
         },
         {
             field: "market",
