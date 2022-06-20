@@ -100,6 +100,14 @@ const CartPage = () => {
                 disableSelectionOnClick
                 autoHeight
             />
+            <br/>
+            {products.length !== 0 &&
+                <Button
+                    variant={"contained"}
+                    color={"success"}
+                    onClick={() => {navigate(ZAP_URI.CHECKOUT)}}
+                >Go to Checkout</Button>
+            }
         </Container>
 
         // </div>

@@ -16,3 +16,7 @@ export const addCartProduct = (productId, quantity) => api.post("/cart/add", {"p
 export const getCartProducts = () => api.get("/cart")
 
 export const deleteCartProductById = (cartId) => api.delete(`/cart/${cartId}`)
+
+export const makeCheckout = (notes, destination) => api.post("/cart/checkout", {"notes": notes, "destination": destination})
+
+export const getOrders = () => api.get("/orders")
