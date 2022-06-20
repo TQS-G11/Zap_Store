@@ -8,7 +8,7 @@ const api = axios.create({
     },
 })
 
-export const getProducts = () => api.get("/zap/products")
+export const getProducts = (name, category) => api.get(`/zap/products?name=${name}&category=${category}`)
 
 export const getProductById = (id) => api.get(`/zap/products/${id}`)
 

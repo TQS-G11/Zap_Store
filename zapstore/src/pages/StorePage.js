@@ -9,11 +9,13 @@ import {getProducts} from "../api/PublicAPI";
 const StorePage = () => {
 
     const [products, setProducts] = useState([])
+    const [name, setName] = useState("")
+    const [category, setCategory] = useState("")
     const token = window.sessionStorage.getItem("token")
     const isAdmin = window.sessionStorage.getItem("username") === "admin"
 
     useEffect(() => {
-        getProducts()
+        getProducts(name, category)
             .then(response => {
                 console.log("product response", response)
                 setProducts(response.data)
@@ -21,7 +23,7 @@ const StorePage = () => {
             .catch(err => {
                 console.log("sussy error", err)
             })
-    }, [])
+    }, [name, category])
 
 
     return (
@@ -31,10 +33,22 @@ const StorePage = () => {
                 <p>Here you can check out the available items</p>
                 <Grid container>
                     <Grid item xs={10}>
-                        <TextField label={"Search"} margin={"normal"} className={"search-bar"} />
+                        <TextField
+                            label={"Search"}
+                            margin={"normal"}
+                            className={"search-bar"}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField label={"Category"} margin={"normal"} className={"category-bar"} />
+                        <TextField
+                            label={"Category"}
+                            margin={"normal"}
+                            className={"category-bar"}
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        />
                     </Grid>
                 </Grid>
                 <br/>

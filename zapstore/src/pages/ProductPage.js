@@ -33,15 +33,8 @@ const ProductPage = () => {
     const navigate = useNavigate()
     const token = window.sessionStorage.getItem("token")
     const canEdit = window.sessionStorage.getItem("username") === "admin"
-    // console.log("token", token)
-    // console.log("Product id", id)
-
-    // const addToCart = () => {
-    //     addProductToCart(product, quantity)
-    // }
 
     const addToCart = () => {
-
         addCartProduct(id/1, quantity/1)
             .then(response => {
                 console.log("product add response", response)
@@ -59,8 +52,6 @@ const ProductPage = () => {
                 setModalText(errorMessage)
                 setOpen(true)
             });
-
-
 
     }
 
