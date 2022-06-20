@@ -10,8 +10,19 @@ import {useNavigate} from "react-router-dom";
 
 
 const pages = {
-    "Home": ZAP_URI.HOME,
-    "Store": ZAP_URI.STORE,
+    "Home": {
+        "link": ZAP_URI.HOME,
+        "private": false
+    },
+    "Store": {
+        "link": ZAP_URI.STORE,
+        "private": false
+    },
+    "Orders": {
+        "link": ZAP_URI.ORDERS,
+        "private": true
+    }
+
     // "Rider Management": ZAP_URI.RIDERS
 }
 
@@ -80,17 +91,19 @@ const TopBar = () => {
                             }}
                         >
                             {Object.keys(pages).map((k) => (
+                                (!pages[k].private || token != null) &&
                                 <MenuItem key={k} onClick={handleCloseNavMenu}>
-                                    <Link onClick={() => navigate(pages[k])} textAlign="center" underline="none">{k}</Link>
+                                    <Link onClick={() => navigate(pages[k].link)} textAlign="center" underline="none">{k}</Link>
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         {Object.keys(pages).map((k) => (
+                            (!pages[k].private || token != null) &&
                             <Button
                                 key={k}
-                                onClick={() => navigate(pages[k])}
+                                onClick={() => navigate(pages[k].link)}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
                                 {k}

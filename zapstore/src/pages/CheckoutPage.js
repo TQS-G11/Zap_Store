@@ -3,9 +3,12 @@ import {Paper, Typography, TextField, Button} from "@mui/material";
 import {useEffect, useState} from "react";
 import LoginForm from "../components/LoginForm";
 import CardContent from '@mui/material/CardContent';
+import {makeCheckout} from "../api/PrivateAPI";
+import {useNavigate} from "react-router-dom";
+import ZAP_URI from "../constants/ZAP_URI";
 
 
-const ReviewPage = () => {
+const CheckoutPage = () => {
     const [destination, setDestination] = useState("");
     const [notes, setNotes] = useState("")
 
@@ -17,17 +20,24 @@ const ReviewPage = () => {
         onCheckout();
     };
 
-    useEffect(() => {
-    }, []);
+    const navigate = useNavigate()
 
     const onCheckout = () => {
         let checkoutInfo = {"notes": notes, "destination": destination};
-        // TODO: POST request
+        console.log("checkoutInfo", checkoutInfo)
+        makeCheckout(notes, destination)
+            .then(response => {
+                console.log("sussy response", response)
+                navigate(ZAP_URI.ORDERS)
+            })
+            .catch(err => {
+                console.log("sussy error", err)
+            })
     }
 
     return (
         <Box>
-            {window.localStorage.getItem("token") === null ?
+            {window.sessionStorage.getItem("token") === null ?
                 (
                     <Grid container justifyContent="center">
                         <Alert severity="warning" variant="filled" sx={{mt: 2, maxWidth: 1000}}>
@@ -93,22 +103,18 @@ const ReviewPage = () => {
                                             <Button
                                                 variant="contained"
                                                 fullWidth
-                                                color="secondary"
+                                                color="success"
                                                 type="submit"
                                             >
                                                 Check Out
                                             </Button>
                                         </Grid>
-                                        {alertMsg ?
-                                            (
-                                                <Fade in={true}>
-                                                    <Grid item xs={12}>
-                                                        <Alert severity={alertSeverity}>{alertMsg}</Alert>
-                                                    </Grid>
-                                                </Fade>
-                                            ) : (
-                                                <></>
-                                            )
+                                        {alertMsg &&
+                                            <Fade in={true}>
+                                                <Grid item xs={12}>
+                                                    <Alert severity={alertSeverity}>{alertMsg}</Alert>
+                                                </Grid>
+                                            </Fade>
                                         }
                                     </Grid>
                                 </form>
@@ -121,4 +127,4 @@ const ReviewPage = () => {
     );
 };
 
-export default ReviewPage;
+export default CheckoutPage;

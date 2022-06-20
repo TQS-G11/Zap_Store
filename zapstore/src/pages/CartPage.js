@@ -105,7 +105,7 @@ const CartPage = () => {
                 <Button
                     variant={"contained"}
                     color={"success"}
-                    // onClick={() => {nagivate(ZAP_URI)}}
+                    onClick={() => {navigate(ZAP_URI.CHECKOUT)}}
                 >Go to Checkout</Button>
             }
         </Container>
