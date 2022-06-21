@@ -2,7 +2,7 @@ name: React app deployement
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop,gh-test-page ]
   pull_request:
     branches: [ develop ]
 
