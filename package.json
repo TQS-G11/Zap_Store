@@ -48,5 +48,4 @@
     ]
   },
   "homepage": "https://TQS-G11.github.io/zap_store",
-  "build": "react-scripts build && cp build/index.html build/404.html"
 }
