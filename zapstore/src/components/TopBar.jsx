@@ -150,7 +150,7 @@ const TopBar = () => {
                                     <Grid item>
                                         <Tooltip title="Open settings">
                                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                                <Chip label={username} variant="outlined"/>
+                                                <Chip id={"username-chip"} label={username} variant="outlined"/>
                                             </IconButton>
                                         </Tooltip>
                                         <Menu

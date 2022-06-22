@@ -81,6 +81,7 @@ const LoginForm = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    id="username"
                                     fullWidth
                                     label="Username"
                                     placeholder="Enter Username"
@@ -95,6 +96,7 @@ const LoginForm = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    id="password"
                                     fullWidth
                                     label="Password"
                                     type="password"
