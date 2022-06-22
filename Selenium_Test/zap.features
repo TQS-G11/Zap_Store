@@ -1,7 +1,0 @@
-Scenario: Login - Success
-
-    Given I'm on login page
-    When I enter the username: "Bob the Builder"
-    And the password: "password123"
-    Then I'm redirected to dashboard page
-    And have "Bob the Builder" present in the navbar
