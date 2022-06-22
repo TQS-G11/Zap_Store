@@ -17,7 +17,7 @@ from webdriver_manager.core.utils import ChromeType
 class Driver():
   def __init__(self):
     self.driver = webdriver.Chrome(service=ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))
-    self.driver.set_window_size(651, 703)
+    # self.driver.set_window_size(651, 703)
   
   
   def close(self):
@@ -25,27 +25,26 @@ class Driver():
   
   def redirect(self, url):
     self.driver.get(url)
-  
-  def test_loginasLucius(self):
-    print("TEST")
-    self.redirect("http://localhost:3000/")
-    element = self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-containedSuccess:nth-child(1)")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).perform()
-    self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-containedSuccess:nth-child(1)").click()
-    element = self.driver.find_element(By.CSS_SELECTOR, "body")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).perform()
-    self.driver.find_element(By.ID, "username").click()
-    self.driver.find_element(By.ID, "username").send_keys("lucius")
-    element = self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-fullWidth")
-    actions = ActionChains(self.driver)
-    actions.move_to_element(element).perform()
-    self.driver.find_element(By.ID, "password").send_keys("amogus123")
-    self.driver.find_element(By.CSS_SELECTOR, ".MuiButton-fullWidth").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".MuiChip-label").text == "lucius"
+
   
 if __name__ == "__main__":
   t = Driver()
   t.test_loginasLucius()
   t.close()
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
