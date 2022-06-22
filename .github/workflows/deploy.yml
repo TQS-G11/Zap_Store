@@ -28,6 +28,7 @@ jobs:
           command: |
             cd ~/Zap_Store/zapstore
             docker stop zapfrontend
+            docker rm zapfrontend
             git pull
             docker build -t zapfrontend_image .
-            docker run --name zapfrontend zapfrontend_image
+            docker run -p 3000:3000 --name zapfrontend zapfrontend_image
