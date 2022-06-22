@@ -12,7 +12,7 @@ const HomePage = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        getProducts()
+        getProducts("", "")
             .then(response => {
                 console.log("product response", response)
                 setProducts(response.data)
