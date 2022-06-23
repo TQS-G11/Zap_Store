@@ -14,7 +14,7 @@ from test_loginasLucius import Driver
 
 import time
 
-BASE_URL = "http://localhost:3000"
+BASE_URL = "http://213.199.129.9:3000"
 driver_manager = None
 
 
@@ -40,12 +40,12 @@ def go_to_page(page):
 @when(parsers.parse("I enter the username: {username}"))
 def insert_username(username):
     driver = driver_manager.driver
-    driver.find_element(By.ID, "username").send_keys(username)
+    driver.find_element(By.ID, ":r0:").send_keys(username)
     
 @when(parsers.parse("the password: {password}"))
 def insert_username(password):
     driver = driver_manager.driver
-    driver.find_element(By.ID, "password").send_keys(password)
+    driver.find_element(By.ID, ":r1:").send_keys(password)
     
 @when("click the login button")
 def click_login_button():
