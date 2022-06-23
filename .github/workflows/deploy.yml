@@ -1,18 +1,32 @@
 name: React app deployement
 
-on:
+on: 
   push:
-    branches: [ master ]
+    branches: main
   pull_request:
-    branches: [ master ]
+    branches: [main,develop]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Deploy react app to github pages
-      uses: tanwanimohit/deploy-react-to-ghpages@v1.0.1
+      - uses: actions/checkout@v2
+      - name: JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+     
+      - name: Run commands
+        uses: fifsky/ssh-action@master
+        with:
+          host: ${{ secrets.MACHINE_IP }}       
+          user: inryatt 
+          key: ${{ secrets.AZURE_SSH_KEY }}
+          port: 22
+          command: |
+            cd ~/Zap_Store/zapstore
+            docker stop zapfrontend
+            docker rm zapfrontend
+            git pull
+            docker build -t zapfrontend_image .
+            docker run -p3000:3000 --name zapfrontend zapfrontend_image
